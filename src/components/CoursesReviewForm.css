@@ -1,0 +1,13 @@
+.submit-button {
+  background-color: #6eb4d1 !important;
+  border: #6eb4d1 !important;
+}
+
+.submit-button:hover {
+  background-color: #6cbeed !important;
+  border: #6cbeed !important;
+}
+
+.select-course:hover {
+  cursor: pointer;
+}

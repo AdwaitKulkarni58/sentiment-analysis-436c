@@ -134,7 +134,12 @@ function CoursesReviewForm() {
           <Form.Label>Review</Form.Label>
           <Form.Control as="textarea" className="review" />
         </Form.Group>
-        <Button variant="primary" type="submit" className="submit-button">
+        <Button
+          variant="primary"
+          type="submit"
+          className="submit-button"
+          disabled={!studentNumber || !course || !year || !major || !review}
+        >
           Submit
         </Button>
       </Form>

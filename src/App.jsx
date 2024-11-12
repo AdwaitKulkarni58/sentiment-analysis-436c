@@ -3,6 +3,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import CoursesReviewForm from "./components/CoursesReviewForm";
 import "./App.css";
+import DataVisualizationDashboard from "./components/DataVisualizationDashboard";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           title="Data Visualization"
           className="tab-content"
         >
-          Data Visualization Dashboard
+          <DataVisualizationDashboard />
         </Tab>
       </Tabs>
     </div>

@@ -17,7 +17,7 @@ function DataVisualizationDashboard() {
   const fetchPieChartData = async (course) => {
     try {
       const response = await fetch(
-        `https://j3fg2jsc5c.execute-api.ca-central-1.amazonaws.com/dev/sentiment-pie-chart/?course=${course}`,
+        `${import.meta.env.VITE_INVOKE_URL_PIE_CHART}${course}`,
         {
           method: "GET",
           headers: {

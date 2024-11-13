@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import CoursesReviewForm from "./components/CoursesReviewForm";
-import Visualization from "./components/Visualization";
-import "./App.css";
 import DataVisualizationDashboard from "./components/DataVisualizationDashboard";
+import "./App.css";
 
 function App() {
   const [activeTab, setActiveTab] = useState("home")

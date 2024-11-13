@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import PieChartComponent from "./PieChart";
 import WordCloudComponent from "./WordCloud";
+import ScoreCardComponent from "./ScoreCard";
 
 function DataVisualizationDashboard() {
   const [sentimentCounts, setSentimentCounts] = useState("");
@@ -39,13 +40,25 @@ function DataVisualizationDashboard() {
     value: sentimentCounts[key],
   }));
 
+  // TODO: to fetch from endpoint
+  const words = [
+    { text: 'Good', value: 100 },
+    { text: 'Easy', value: 60 },
+    { text: 'Difficult', value: 10 },
+    { text: 'Useful', value: 80 },
+    { text: 'Homework', value: 30 },
+  ];
+
+  // TODO: to fetch from endpoint
+  const score = 4.2
+  const summary = "here be summary"
+
   return (
     <div>
-      Data Visualization Dashboard!
       <div>
         <Form>
           <Form.Group className="mb-3" controlId="Course">
-            <Form.Label>Course</Form.Label>
+            <Form.Label>Choose a course</Form.Label>
             <Form.Select
               onChange={handleCourseChange}
               className="select-course"
@@ -57,8 +70,11 @@ function DataVisualizationDashboard() {
           </Form.Group>
         </Form>
       </div>
-      <PieChartComponent chartData={chartData} />
-      <WordCloudComponent />
+      <div className="viz-container">
+        <ScoreCardComponent score={score} summary={summary} />
+        <PieChartComponent chartData={chartData} />
+        <WordCloudComponent words={words} />
+      </div>
     </div>
   );
 }

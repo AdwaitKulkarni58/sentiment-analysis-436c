@@ -1,0 +1,13 @@
+.viz-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+  
+  @media (max-width: 800px) {
+    .viz-container {
+      flex-direction: column;
+    }
+  }

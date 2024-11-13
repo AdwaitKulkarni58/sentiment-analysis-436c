@@ -1,68 +1,49 @@
-import React, { useCallback, useMemo } from "react";
-import WordCloud from "react-d3-cloud"
+import React, { useEffect, useRef } from "react";
+import * as d3 from "d3";
+import cloud from 'd3-cloud';
 
-const MAX_FONT_SIZE = 200;
-const MIN_FONT_SIZE = 30;
-const MAX_FONT_WEIGHT = 700;
-const MIN_FONT_WEIGHT = 400;
-const MAX_WORDS = 150;
+function WordCloudComponent({ words }) {
+  
+  const svgRef = useRef();
 
-function WordCloudComponent() {
-  const words = [
-    { text: 'Good', value: 100 },
-    { text: 'Easy', value: 60 },
-    { text: 'Difficult', value: 10 },
-    { text: 'Useful', value: 80 },
-    { text: 'Homework', value: 30 },
-  ];
+  useEffect(() => {
+    // Clear the SVG contents before each render to avoid duplicate elements
+    d3.select(svgRef.current).selectAll("*").remove();
 
-  const sortedWords = useMemo(
-    () => words.sort((a, b) => b.value - a.value).slice(0, MAX_WORDS),
-    [words]
-  );
+    const layout = cloud()
+      .size([500, 300]) // Size of the word cloud
+      .words(
+        words.map(word => ({ text: word.text, size: word.value }))
+      )
+      .padding(10) // Space between words
+      .fontSize(d => d.size) // Map font size to the word's frequency
+      .rotate(0) // No rotation for readability
+      .on("end", draw); // Draw the word cloud once layout is complete
 
-  const [minOccurences, maxOccurences] = useMemo(() => {
-    const min = Math.min(...sortedWords.map((w) => w.value));
-    const max = Math.max(...sortedWords.map((w) => w.value));
-    return [min, max];
-  }, [sortedWords]);
+    layout.start();
 
-  const calculateFontSize = useCallback(
-    (wordOccurrences) => {
-      const normalizedValue =
-        (wordOccurrences - minOccurences) / (maxOccurences - minOccurences);
-      const fontSize =
-        MIN_FONT_SIZE + normalizedValue * (MAX_FONT_SIZE - MIN_FONT_SIZE);
-      return Math.round(fontSize);
-    },
-    [maxOccurences, minOccurences]
-  );
+    function draw(wordsToDraw) {
+      const svg = d3.select(svgRef.current)
+        .attr("width", layout.size()[0])
+        .attr("height", layout.size()[1]);
 
-  const calculateFontWeight = useCallback(
-    (wordOccurrences) => {
-      const normalizedValue =
-        (wordOccurrences - minOccurences) / (maxOccurences - minOccurences);
-      const fontWeight =
-        MIN_FONT_WEIGHT +
-        normalizedValue * (MAX_FONT_WEIGHT - MIN_FONT_WEIGHT);
-      return Math.round(fontWeight);
-    },
-    [maxOccurences, minOccurences]
-  );
+      svg.append("g")
+        .attr("transform", `translate(${layout.size()[0] / 2},${layout.size()[1] / 2})`)
+        .selectAll("text")
+        .data(wordsToDraw)
+        .enter().append("text")
+        .style("font-family", "Impact")
+        .style("fill", () => d3.schemeCategory10[Math.floor(Math.random() * 10)])
+        .style("font-size", d => `${d.size}px`)
+        .attr("text-anchor", "middle")
+        .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`)
+        .text(d => d.text);
+    }
+  }, [words]);
 
   return (
     <>
-      <WordCloud
-        // width={1800}
-        // height={1000}
-        font={"Poppins"}
-        fontWeight={(word) => calculateFontWeight(word.value)}
-        data={sortedWords}
-        rotate={0}
-        padding={1}
-        fontSize={(word) => calculateFontSize(word.value)}
-        random={() => 0.5}
-      />
+      <svg ref={svgRef}></svg>
     </>
   )
 }

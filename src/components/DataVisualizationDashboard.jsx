@@ -38,7 +38,7 @@ function DataVisualizationDashboard() {
     value: sentimentCounts[key],
   }));
 
-  const colors = ["#4caf50", "#f44336", "#ffeb3b", "#2196f3"];
+  const colors = ["#95d5b2", "#f07167", "#ffe066", "#6cbeed"];
 
   return (
     <div>

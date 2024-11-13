@@ -11,7 +11,6 @@ function ScoreCardComponent( { score, summary }) {
     <div style={{ textAlign: 'center', margin: '20px' }}>
       <div
         style={{
-          display: 'inline-block',
           padding: '80px',
           backgroundColor: getBackgroundColor(score),
           borderRadius: '8px',

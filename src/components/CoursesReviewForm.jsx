@@ -17,7 +17,10 @@ function CoursesReviewForm({ onSubmitChangeTab }) {
   );
 
   const handleStudentNumberChange = (event) => {
-    setStudentNumber(event.target.value);
+    const value = event.target.value;
+    if (/^\d{0,8}$/.test(value)) {
+      setStudentNumber(value);
+    }
   };
 
   const handleCourseChange = (event) => {
@@ -80,6 +83,8 @@ function CoursesReviewForm({ onSubmitChangeTab }) {
     }
   };
 
+  const isStudentNumberValid = studentNumber.length === 8;
+
   return (
     <>
       <Alert variant={alertVariant} show={alertVisible}>
@@ -90,9 +95,11 @@ function CoursesReviewForm({ onSubmitChangeTab }) {
         <Form.Group className="mb-3" controlId="studentNumber">
           <Form.Label>Student Number</Form.Label>
           <Form.Control
-            type="number"
+            type="text"
             value={studentNumber}
             onChange={handleStudentNumberChange}
+            maxLength={8}
+            placeholder="Enter 8-digit student number"
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="Course">
@@ -114,7 +121,7 @@ function CoursesReviewForm({ onSubmitChangeTab }) {
             value={year}
             onChange={handleYearChange}
             min="1"
-            max="4"
+            max="7"
           />
         </Form.Group>
         <Form.Group
@@ -139,7 +146,9 @@ function CoursesReviewForm({ onSubmitChangeTab }) {
           variant="primary"
           type="submit"
           className="submit-button"
-          disabled={!studentNumber || !course || !year || !major || !review}
+          disabled={
+            !isStudentNumberValid || !course || !year || !major || !review
+          }
         >
           Submit
         </Button>

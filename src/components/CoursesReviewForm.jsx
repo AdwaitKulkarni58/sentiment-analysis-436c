@@ -45,6 +45,14 @@ function CoursesReviewForm({ onSubmitChangeTab }) {
     }
   }, [alertVisible]);
 
+  const handleClear = () => {
+    setStudentNumber("");
+    setCourse("CPSC110");
+    setYear("");
+    setMajor("");
+    setReview("");
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const bucketName = import.meta.env.VITE_S3_BUCKET;
@@ -74,7 +82,7 @@ function CoursesReviewForm({ onSubmitChangeTab }) {
       setAlertMessage("Sucessfully uploaded review!");
       setAlertVisible(true);
       onSubmitChangeTab();
-      //TODO clear fields
+      handleClear();
     } catch (error) {
       console.log(error);
       setAlertVariant("danger");
@@ -196,23 +204,25 @@ function CoursesReviewForm({ onSubmitChangeTab }) {
             max="7"
           />
         </Form.Group>
-        <Form.Group
-          className="mb-3"
-          controlId="major"
-          value={major}
-          onChange={handleMajorChange}
-        >
+        <Form.Group>
           <Form.Label>Major</Form.Label>
-          <Form.Control />
+          <Form.Control
+            type="text"
+            className="mb-3"
+            controlId="major"
+            value={major}
+            onChange={handleMajorChange}
+          />
         </Form.Group>
-        <Form.Group
-          className="mb-3"
-          controlId="review"
-          value={review}
-          onChange={handleReviewChange}
-        >
+        <Form.Group>
           <Form.Label>Review</Form.Label>
-          <Form.Control as="textarea" className="review" />
+          <Form.Control
+            as="textarea"
+            className="mb-3 review"
+            controlId="review"
+            value={review}
+            onChange={handleReviewChange}
+          />
         </Form.Group>
         <Button
           variant="primary"
@@ -223,6 +233,14 @@ function CoursesReviewForm({ onSubmitChangeTab }) {
           }
         >
           Submit
+        </Button>
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={handleClear}
+          className="clearButton"
+        >
+          Clear
         </Button>
       </Form>
     </>

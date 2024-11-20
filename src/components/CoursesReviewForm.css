@@ -11,3 +11,7 @@
 .select-course:hover {
   cursor: pointer;
 }
+
+.clearButton {
+  margin-left: 8px;
+}

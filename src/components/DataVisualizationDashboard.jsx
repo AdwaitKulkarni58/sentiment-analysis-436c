@@ -4,16 +4,20 @@ import { Form } from "react-bootstrap";
 import PieChartComponent from "./PieChart";
 import WordCloudComponent from "./WordCloud";
 import ScoreCardComponent from "./ScoreCard";
+import BarChartComponent from "./BarChartComponent";
 
 function DataVisualizationDashboard() {
   const initialState = {
     pie_chart_data: [],
     word_cloud_data: [],
     score_data: null,
-    summary_data: null
-  }
+    summary_data: null,
+    bar_chart_data: null,
+  };
 
   const [sentimentCounts, setSentimentCounts] = useState(initialState);
+
+  const [barChartData, setBarChartData] = useState(null);
 
   useEffect(() => {
     fetchPieChartData("CPSC110");
@@ -37,6 +41,7 @@ function DataVisualizationDashboard() {
       const data = await response.json();
       //console.log(data);
       setSentimentCounts(data);
+      setBarChartData(data.bar_chart_data);
       console.log(sentimentCounts);
       //console.log(data);
     } catch (err) {
@@ -154,12 +159,10 @@ function DataVisualizationDashboard() {
         </div>
         {sentimentCounts.score_data ? (
           <div className="viz-container">
-            <ScoreCardComponent
-              score={score}
-              summary={summary}
-            />
+            <ScoreCardComponent score={score} summary={summary} />
             <PieChartComponent chartData={chartData} />
             <WordCloudComponent words={sentimentCounts.word_cloud_data} />
+            {barChartData && <BarChartComponent data={barChartData} />}
           </div>
         ) : (
           <p>No data for this course, please choose another one.</p>

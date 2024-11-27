@@ -20,10 +20,10 @@ function BarChartComponent({ data }) {
 
   return (
     <div>
-      <span className="title">Average Sentiment Scores</span>
+      <span className="title">Sentiment Confidence Level</span>
       <br></br>
       <span className="subtext">
-        Displays the average scores for each sentiment category: Positive,
+        Displays the confidence level for each sentiment category: Positive,
         Negative, Mixed, Neutral
       </span>
       <BarChart
@@ -38,7 +38,7 @@ function BarChartComponent({ data }) {
         <YAxis
           domain={[0, 1]}
           label={{
-            value: "Sentiment Score",
+            value: "Confidence Percentage",
             angle: -90,
             position: "insideLeft",
             dy: 60,
@@ -48,8 +48,8 @@ function BarChartComponent({ data }) {
         <Legend />
         <Bar dataKey="positive" fill="#4caf50" barSize={100} />
         <Bar dataKey="negative" fill="#f44336" barSize={50} />
-        <Bar dataKey="neutral" fill="#2196f3" barSize={50} />
-        <Bar dataKey="mixed" fill="#ff9800" barSize={50} />
+        <Bar dataKey="neutral" fill="#ff9800" barSize={50} />
+        <Bar dataKey="mixed" fill="#2196f3" barSize={50} />
       </BarChart>
     </div>
   );

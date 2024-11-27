@@ -1,13 +1,26 @@
 .viz-container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 1280px) {
+  .viz-container {
+    flex-direction: row;
     display: flex;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
     flex-wrap: wrap;
+    gap: 20px;
   }
-  
-  @media (max-width: 800px) {
-    .viz-container {
-      flex-direction: column;
-    }
+}
+
+@media (max-width: 800px) {
+  .viz-container {
+    flex-direction: column;
   }
+}
+
+.viz-component {
+  padding: 24px;
+}

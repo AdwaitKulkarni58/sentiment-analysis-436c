@@ -5,8 +5,9 @@ import PieChartComponent from "./PieChart";
 import WordCloudComponent from "./WordCloud";
 import ScoreCardComponent from "./ScoreCard";
 import BarChartComponent from "./BarChartComponent";
+import Spinner from "react-bootstrap/Spinner";
 
-function DataVisualizationDashboard() {
+function DataVisualizationDashboard({ course, setCourseDataViz }) {
   const initialState = {
     pie_chart_data: [],
     word_cloud_data: [],
@@ -16,18 +17,20 @@ function DataVisualizationDashboard() {
   };
 
   const [sentimentCounts, setSentimentCounts] = useState(initialState);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [barChartData, setBarChartData] = useState(null);
 
   useEffect(() => {
-    fetchPieChartData("CPSC100");
-  }, []);
+    fetchPieChartData(course);
+  }, [course]);
 
   const handleCourseChange = (event) => {
-    fetchPieChartData(event.target.value);
+    setCourseDataViz(event.target.value);
   };
 
   const fetchPieChartData = async (course) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_INVOKE_URL_PIE_CHART}${course}`,
@@ -39,11 +42,10 @@ function DataVisualizationDashboard() {
         }
       );
       const data = await response.json();
-      //console.log(data);
       setSentimentCounts(data);
       setBarChartData(data.bar_chart_data);
       console.log(sentimentCounts);
-      //console.log(data);
+      setIsLoading(false);
     } catch (err) {
       console.log(err.message);
       setSentimentCounts(initialState);
@@ -77,6 +79,7 @@ function DataVisualizationDashboard() {
               <Form.Select
                 onChange={handleCourseChange}
                 className="select-course"
+                value={course}
               >
                 <option value="CPSC100">CPSC 100</option>
                 <option value="CPSC103">CPSC 103</option>
@@ -157,15 +160,27 @@ function DataVisualizationDashboard() {
             </Form.Group>
           </Form>
         </div>
-        {sentimentCounts.score_data ? (
-          <div className="viz-container">
-            <ScoreCardComponent score={score} summary={summary} />
-            <PieChartComponent chartData={chartData} />
-            <WordCloudComponent words={sentimentCounts.word_cloud_data} />
-            {barChartData && <BarChartComponent data={barChartData} />}
-          </div>
-        ) : (
+        {sentimentCounts.score_data === null ? (
           <p>No data for this course, please choose another one.</p>
+        ) : isLoading ? (
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        ) : (
+          <div className="viz-container">
+            <div className="viz-component">
+              <ScoreCardComponent score={score} summary={summary} />
+            </div>
+            <div className="viz-component">
+              <PieChartComponent chartData={chartData} />
+            </div>
+            <div className="viz-component">
+              <WordCloudComponent words={sentimentCounts.word_cloud_data} />
+            </div>
+            <div className="viz-component">
+              {barChartData && <BarChartComponent data={barChartData} />}
+            </div>
+          </div>
         )}
       </div>
     </>

@@ -7,19 +7,8 @@ function ScoreCardComponent({ score, summary }) {
   };
 
   return (
-    <div style={{ textAlign: "center", margin: "20px" }}>
-      <span
-        className="title"
-        style={{
-          fontSize: "18px",
-          padding: "20px",
-          alignItems: "center",
-          margin: "20px",
-          paddingBottom: "50px",
-        }}
-      >
-        Summary
-      </span>
+    <div>
+      <span className="title">Summary</span>
       <br></br>
       <span className="subtext">
         Display the average score and generative summary
@@ -37,7 +26,7 @@ function ScoreCardComponent({ score, summary }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          margin: "20px",
+          marginTop: "20px",
         }}
       >
         {score}

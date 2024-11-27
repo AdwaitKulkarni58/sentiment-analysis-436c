@@ -2,32 +2,45 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import cloud from "d3-cloud";
 
-function WordCloudComponent({ words }) {
-  console.log(words);
-
+function WordCloudComponent({
+  words,
+  width = 500,
+  height = 300,
+  maxFontSize = 60,
+}) {
   const svgRef = useRef();
 
   useEffect(() => {
-    // Clear the SVG contents before each render to avoid duplicate elements
+    if (!words || words.length === 0) {
+      console.error("No words provided to the word cloud.");
+      return;
+    }
+
+    // Clear the SVG contents before each render
     d3.select(svgRef.current).selectAll("*").remove();
 
+    // Normalize font sizes to avoid extremes
+    const maxValue = Math.max(...words.map((w) => w[1]));
+    const minValue = Math.min(...words.map((w) => w[1]));
+    const fontSizeScale = d3
+      .scaleLinear()
+      .domain([minValue, maxValue])
+      .range([10, maxFontSize]);
+
+    // Initialize the cloud layout
     const layout = cloud()
-      .size([500, 300]) // Size of the word cloud
+      .size([width, height])
       .words(
-        words.map(
-          (word) => (
-            console.log(word),
-            {
-              text: word.text,
-              size: word.value,
-            }
-          )
-        )
+        words.map((word) => ({
+          text: word[0],
+          size: fontSizeScale(word[1]), // Map size to font scale
+        }))
       )
-      .padding(10) // Space between words
-      .fontSize((d) => d.size) // Map font size to the word's frequency
-      .rotate(0) // No rotation for readability
-      .on("end", draw); // Draw the word cloud once layout is complete
+      .padding(5) // Space between words
+      .rotate(0) // Rotate randomly between -45 and 45 degrees
+      .font("Impact")
+      .fontSize((d) => d.size)
+      .on("end", draw);
 
     layout.start();
 
@@ -37,6 +50,7 @@ function WordCloudComponent({ words }) {
         .attr("width", layout.size()[0])
         .attr("height", layout.size()[1]);
 
+      // Draw the words
       svg
         .append("g")
         .attr(
@@ -50,8 +64,8 @@ function WordCloudComponent({ words }) {
         .style("font-family", "Impact")
         .style(
           "fill",
-          () => d3.schemeCategory10[Math.floor(Math.random() * 10)]
-        )
+          (d) => d3.schemeCategory10[Math.floor(Math.random() * 10)]
+        ) // Random color
         .style("font-size", (d) => `${d.size}px`)
         .attr("text-anchor", "middle")
         .attr(
@@ -60,12 +74,18 @@ function WordCloudComponent({ words }) {
         )
         .text((d) => d.text);
     }
-  }, [words]);
+  }, [words, width, height, maxFontSize]);
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <svg ref={svgRef}></svg>
-    </>
+    </div>
   );
 }
 

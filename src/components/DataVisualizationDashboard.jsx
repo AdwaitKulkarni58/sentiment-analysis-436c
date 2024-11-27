@@ -20,7 +20,7 @@ function DataVisualizationDashboard() {
   const [barChartData, setBarChartData] = useState(null);
 
   useEffect(() => {
-    fetchPieChartData("CPSC110");
+    fetchPieChartData("CPSC100");
   }, []);
 
   const handleCourseChange = (event) => {

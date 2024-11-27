@@ -46,10 +46,10 @@ function BarChartComponent({ data }) {
         />
         <Tooltip />
         <Legend />
-        <Bar dataKey="positive" fill="#95d5b2" barSize={100} />
-        <Bar dataKey="negative" fill="#f07167" barSize={50} />
-        <Bar dataKey="neutral" fill="#ffe066" barSize={50} />
-        <Bar dataKey="mixed" fill="#6cbeed" barSize={50} />
+        <Bar dataKey="positive" fill="#4caf50" barSize={100} />
+        <Bar dataKey="negative" fill="#f44336" barSize={50} />
+        <Bar dataKey="neutral" fill="#2196f3" barSize={50} />
+        <Bar dataKey="mixed" fill="#ff9800" barSize={50} />
       </BarChart>
     </div>
   );

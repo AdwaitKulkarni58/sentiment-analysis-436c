@@ -84,6 +84,11 @@ function WordCloudComponent({
         alignItems: "center",
       }}
     >
+      <span className="title">Word Cloud</span>
+      <br></br>
+      <span className="subtext">
+        Displays the word cloud of reviews
+      </span>
       <svg ref={svgRef}></svg>
     </div>
   );

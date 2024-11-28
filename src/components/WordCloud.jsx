@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import cloud from "d3-cloud";
+import "./WordCloud.css";
 
 function WordCloudComponent({
   words,
@@ -77,18 +78,12 @@ function WordCloudComponent({
   }, [words, width, height, maxFontSize]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <span className="title">Word Cloud</span>
-      <br></br>
-      <span className="subtext">
-        Displays the word cloud of reviews
-      </span>
+    <div>
+      <div>
+        <span className="title">Word Cloud</span>
+        <br></br>
+        <span className="subtext">Displays the word cloud of reviews</span>
+      </div>
       <svg ref={svgRef}></svg>
     </div>
   );

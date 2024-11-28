@@ -3,7 +3,7 @@ import "./CoursesReviewForm.css";
 import { Form, Button } from "react-bootstrap";
 import Alert from "react-bootstrap/Alert";
 
-function CoursesReviewForm({ onSubmitChangeTab }) {
+function CoursesReviewForm({ onSubmitChangeTab, setCourseDataViz }) {
   const [studentNumber, setStudentNumber] = useState("");
   const [course, setCourse] = useState("CPSC110");
   const [year, setYear] = useState("");
@@ -82,6 +82,7 @@ function CoursesReviewForm({ onSubmitChangeTab }) {
       setAlertMessage("Sucessfully uploaded review!");
       setAlertVisible(true);
       onSubmitChangeTab();
+      setCourseDataViz(course);
       handleClear();
     } catch (error) {
       console.log(error);

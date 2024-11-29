@@ -95,11 +95,11 @@ Generates concise, accurate summaries of all reviews for each course using a fin
 ### Back-end:  
 - AWS Lambda, S3 Bucket Storage
 ### Database:  
-- AWS RDS  
+- AWS Relational Database Service (RDS)  
 ### Machine Learning:  
 - AWS SageMaker, Hugging-Face  
 ### Cloud Services:  
-- AWS Comprehend, AWS Internet Gateway, Virtual Private Cloud (VPC), AWS Key Management Service, AWS Secrets Manager, AWS Identity and Access Management
+- AWS Comprehend, AWS Internet Gateway, Virtual Private Cloud (VPC), AWS Key Management Service (KMS), AWS Secrets Manager, AWS Identity and Access Management (IAM)
 <hr></hr>
 
 # Future-Enhancements:  

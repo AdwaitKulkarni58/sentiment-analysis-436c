@@ -3,6 +3,9 @@
 This project is an end-to-end solution designed for UBC Computer Science students. It collects user reviews, analyzes their sentiments, and summarizes each course's feedback using visualizations and modern machine learning models. The application provides an intuitive interface for real-time sentiment visualization, detailed analytics, and summary generation.  
 <hr></hr>  
 
+Deployed URL: https://sentiment-analysis-436c.onrender.com  
+<hr></hr>  
+  
 # Table of Contents:  
 [Team Members](#Team-Members)  
 [Features](#Features)    
@@ -57,7 +60,7 @@ Generates concise, accurate summaries of all reviews for each course using a fin
 - Node.js (v16 or higher)  
 - AWS account with access to S3, Lambda, RDS, Comprehend, and SageMaker  
 - Python (v3.9 or higher)
-### Steps to follow:  
+### Steps to follow (for external users only):  
 1) Clone the repository
    ```
    git clone https://github.com/AdwaitKulkarni58/sentiment-analysis-436c  
@@ -103,6 +106,8 @@ Generates concise, accurate summaries of all reviews for each course using a fin
 - Integration of additional complex machine learning models for better summary results of individual courses.  
 - Provide a more holistic overview of the entire department by looking at all courses and creating a combined faculty result.  
 - Ability to register for courses directly from the dashboard, eliminating the need to go to Workday, search for courses separately, and register individually.
+- Use AWS Aurora for auto-scaling of the relational database.
+- Create an authentication system and use UBC CWL for student authentication.  
 <hr></hr>
 
 # Contributing:  

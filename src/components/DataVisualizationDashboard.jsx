@@ -16,20 +16,24 @@ function DataVisualizationDashboard({ course, setCourseDataViz }) {
     bar_chart_data: null,
   };
 
-  const [sentimentCounts, setSentimentCounts] = useState(initialState);
+  const [visualizationData, setVisualizationData] = useState(initialState);
   const [isLoading, setIsLoading] = useState(false);
 
   const [barChartData, setBarChartData] = useState(null);
 
   useEffect(() => {
-    fetchPieChartData(course);
+    fetchVisualizationData(course);
   }, [course]);
 
   const handleCourseChange = (event) => {
     setCourseDataViz(event.target.value);
   };
 
-  const fetchPieChartData = async (course) => {
+  const fetchVisualizationData = async (course) => {
+    if (!course) {
+      console.error("tried to fetch data for empty course!");
+      return;
+    }
     setIsLoading(true);
     try {
       const response = await fetch(
@@ -42,20 +46,21 @@ function DataVisualizationDashboard({ course, setCourseDataViz }) {
         }
       );
       const data = await response.json();
-      setSentimentCounts(data);
+      setVisualizationData(data);
       setBarChartData(data.bar_chart_data);
-      console.log(sentimentCounts);
       setIsLoading(false);
     } catch (err) {
       console.log(err.message);
-      setSentimentCounts(initialState);
+      setVisualizationData(initialState);
     }
   };
 
-  const chartData = Object.keys(sentimentCounts.pie_chart_data).map((key) => ({
-    name: key,
-    value: sentimentCounts.pie_chart_data[key],
-  }));
+  const chartData = Object.keys(visualizationData.pie_chart_data).map(
+    (key) => ({
+      name: key,
+      value: visualizationData.pie_chart_data[key],
+    })
+  );
 
   // TODO: to fetch from endpoint
   // const words = [
@@ -66,8 +71,8 @@ function DataVisualizationDashboard({ course, setCourseDataViz }) {
   //   { text: 'Homework', value: 30 },
   // ];
 
-  const score = sentimentCounts.score_data;
-  const summary = sentimentCounts.summary_data;
+  const score = visualizationData.score_data;
+  const summary = visualizationData.summary_data;
 
   return (
     <>
@@ -160,7 +165,7 @@ function DataVisualizationDashboard({ course, setCourseDataViz }) {
             </Form.Group>
           </Form>
         </div>
-        {sentimentCounts.score_data === null ? (
+        {visualizationData.score_data === null ? (
           <p>No data for this course, please choose another one.</p>
         ) : isLoading ? (
           <Spinner animation="border" role="status">
@@ -175,7 +180,7 @@ function DataVisualizationDashboard({ course, setCourseDataViz }) {
               <PieChartComponent chartData={chartData} />
             </div>
             <div className="viz-component">
-              <WordCloudComponent words={sentimentCounts.word_cloud_data} />
+              <WordCloudComponent words={visualizationData.word_cloud_data} />
             </div>
             <div className="viz-component">
               {barChartData && <BarChartComponent data={barChartData} />}

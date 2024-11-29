@@ -52,7 +52,7 @@ Generates concise, accurate summaries of all reviews for each course using a fin
 ### Sentiment:  
 - AWS Comprehend to analyze sentiment according to 4 sentiment labels and get the confidence level for each label.
 ### Machine Learning:  
-- Review summarization models hosted on AWS SageMaker using text-generation models like Hugging-Face.
+- Review summarization models hosted on AWS SageMaker using text-generation models like Google Pegasus XSUM on platforms like Hugging-Face.
 <hr></hr>  
   
 # Setup:  

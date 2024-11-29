@@ -4,20 +4,20 @@ This project is an end-to-end solution designed for UBC Computer Science student
 <hr></hr>  
 
 # Table of Contents:  
-[Team Members](#Team%20Members)  
+[Team Members](#Team-Members)  
 [Features](#Features)    
 [Architecture](#Architecture)  
 [Setup](#Setup)  
 [Usage](#Usage)  
 [Technologies](#Technologies)  
-[Future Enhancements](#Future%20Enhancements)  
+[Future Enhancements](#Future-Enhancements)  
 [Contributing](#Contributing)  
 [License](#License)  
 
 [Jump to Bottom ↓](#License)  
 <hr></hr>
 
-# Team Members:  
+# Team-Members:  
 - Adwait Kulkarni
 - Rebecca Lee
 - Dominic Lo
@@ -99,7 +99,7 @@ Generates concise, accurate summaries of all reviews for each course using a fin
 - AWS Comprehend, AWS Internet Gateway, Virtual Private Cloud (VPC), AWS Key Management Service, AWS Secrets Manager, AWS Identity and Access Management
 <hr></hr>
 
-# Future Enhancements:  
+# Future-Enhancements:  
 - Integration of additional complex machine learning models for better summary results of individual courses.  
 - Provide a more holistic overview of the entire department by looking at all courses and creating a combined faculty result.  
 - Ability to register for courses directly from the dashboard, eliminating the need to go to Workday, search for courses separately, and register individually.
@@ -117,4 +117,4 @@ To contribute a new feature to the project or submit a bug:
 # License:  
 This project is licensed under the MIT License.  
 
-[Go to Top ↑](#Team%20Members)
+[Go to Top ↑](#Team-Members)

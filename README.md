@@ -82,7 +82,8 @@ Generates concise, accurate summaries of all reviews for each course using a fin
 
 # Usage:  
 1) Submit Reviews:  
-- Navigate to the web application and submit reviews for a course.  
+- Navigate to the web application and submit reviews for a course.
+- (For course staff) To generate good summaries, input longer reviews so the model can be trained on more input data and create better results.  
 2) View Analytics:
 - Access sentiment distribution charts and word clouds for comprehensive feedback on a course.  
 3) Generate Summaries:  
